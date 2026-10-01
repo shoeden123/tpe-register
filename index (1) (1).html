@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!-- >>> STEP: paste your Apps Script Web app URL between the quotes on the SCRIPT_URL line below <<< -->
+<script>var SCRIPT_URL="https://script.google.com/macros/s/AKfycbxMJ5Wt5d3VUiuAfWlkBLob-B_w56xWbYrdqhQVIfvU-eZx08-KX_m_R33vnnWTb41r/exec";</script>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Road To Immortal | Team Registration</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#d4af37;--gold2:#8a6d1c;--bg:#000;--panel:#111;--text:#eee;--mute:#a39b86}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 Barlow,sans-serif}
+main{max-width:640px;margin:0 auto;padding:32px 18px 64px}
+header{text-align:center;padding:12px 0 28px;border-bottom:1px solid var(--gold2)}
+.logos{display:flex;justify-content:center;gap:20px;align-items:center;margin-bottom:16px}
+.logos img{max-height:84px;max-width:42%}
+h1{font:700 clamp(36px,9vw,56px)/1 'Barlow Condensed',sans-serif;color:var(--gold);margin:0}
+header p{color:var(--mute);margin:10px 0 0}
+fieldset{border:1px solid var(--gold2);border-radius:6px;margin:26px 0;padding:18px;background:var(--panel)}
+legend{font:700 24px 'Barlow Condensed',sans-serif;color:var(--gold);padding:0 8px}
+label{display:block;margin:14px 0 4px;font-weight:500}
+input,select{width:100%;padding:11px;background:#000;color:var(--text);border:1px solid #444;border-radius:4px;font:inherit}
+input:focus,select:focus,button:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.waiver{max-height:300px;overflow-y:auto;border:1px solid #444;padding:14px;font-size:14px;color:#cfc8b6;background:#000}
+.waiver b{color:var(--gold);display:block;margin-top:12px}
+.waiver ul{margin:6px 0;padding-left:20px}
+.chk{display:flex;gap:10px;align-items:flex-start;margin-top:16px}
+.chk input{width:20px;height:20px;margin-top:3px;flex:none}
+button{width:100%;padding:15px;margin-top:8px;background:var(--gold);color:#000;border:0;border-radius:4px;font:700 22px 'Barlow Condensed',sans-serif;letter-spacing:.04em;cursor:pointer}
+button:disabled{opacity:.5;cursor:wait}
+.note{color:var(--mute);font-size:14px}
+#msg{margin-top:14px;padding:14px;border-radius:4px;display:none}
+#msg.err{display:block;border:1px solid #c0392b;color:#ff9c90}
+.done{text-align:center;padding:40px 0}
+.done h2{font:700 40px 'Barlow Condensed',sans-serif;color:var(--gold);margin:0 0 8px}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="logos"><img src="logo-road-to-immortal.png" alt="Road To Immortal" onerror="this.remove()"><img src="logo-tpe.png" alt="The Paddle Effect" onerror="this.remove()"></div>
+  <h1>Road To Immortal</h1>
+  <p>TPE Pickleball Tournament &middot; November 21, 2026 &middot; Pampanga Pickleball Center</p>
+  <p>Registration fee: &#8369;<span id="fee"></span> per player (&#8369;<span id="fee-team"></span> per team) &middot; Deadline: November 7, 2026</p>
+</header>
+
+<div id="closed" class="done" hidden><h2>Registration is closed</h2><p>For questions, contact <span id="ph"></span>.</p></div>
+<div id="ok" class="done" hidden><h2>Team registered</h2><p>Your reference: <b id="ref"></b></p><p class="note">We will message you on Facebook or by phone once your payment is verified. Screenshot this page for your records.</p></div>
+
+<form id="f" novalidate>
+  <fieldset><legend>Division</legend>
+    <label for="division">Choose your division (Open Category)</label>
+    <select id="division" name="division" required><option value="">Select a division</option><option>Men's Doubles</option><option>Women's Doubles</option><option>Mixed Doubles</option></select>
+  </fieldset>
+  <div id="players"></div>
+
+  <fieldset><legend>Waiver, Release &amp; Consent</legend>
+  <div class="waiver" tabindex="0" aria-label="Waiver text">
+<p><strong>TPE PICKLEBALL TOURNAMENT WAIVER, RELEASE &amp; CONSENT AGREEMENT</strong></p>
+<p>By registering a team for and/or participating in the TPE Pickleball Tournament, the registered players acknowledge, understand, and voluntarily agree to the following terms and conditions. For purposes of this Agreement, a “Team” consists of two (2) registered players, collectively referred to as the “Players.” The person completing the registration and accepting this Agreement is referred to as the “Registering Player.”</p>
+<b>1. Assumption of Risk</b>
+<p>The Players understand that participating in pickleball and tournament activities involves inherent and foreseeable risks. These may include, but are not limited to, falls, slips, collisions with other players or objects, muscle strains, sprains, fractures, physical exhaustion, heat-related conditions, accidental injuries, and other physical injuries that may occur during play, warm-up, practice, movement around the venue, or other tournament-related activities.</p>
+<p>The Players voluntarily choose to participate and assume responsibility for the risks associated with participation, whether known or reasonably foreseeable.</p>
+<p>Each Player confirms that they are voluntarily participating and are responsible for determining whether they are physically capable of participating in the tournament.</p>
+<b>2. Release and Waiver of Liability</b>
+<p>To the fullest extent permitted by applicable law, the Players release and hold harmless The Paddle Effect Pickleball Club, including its organizers, officers, volunteers, tournament officials, staff, representatives, and persons assisting in the conduct of the tournament (collectively, the “Organizer”), from claims, demands, liabilities, damages, losses, or expenses arising from or related to either Player's participation in the tournament, including personal injury or illness.</p>
+<p>This release applies to injuries, illness, accidents, or other incidents arising from participation in the tournament, including those resulting from the inherent risks of the sport, interactions with other participants, or circumstances occurring during tournament activities.</p>
+<p>Nothing in this agreement is intended to waive or exclude liability that cannot legally be waived or excluded under applicable law.</p>
+<b>3. Medical Assistance and Emergency Care</b>
+<p>The Organizer will have basic first-aid supplies available during the tournament for unforeseen circumstances.</p>
+<p>The Players understand and agree that the Organizer is not responsible for providing or paying for medical treatment, hospitalization, ambulance services, medication, diagnostic procedures, or other medical expenses that may become necessary as a result of an injury, illness, or emergency.</p>
+<p>If a Player is able to make a decision regarding their medical or emergency needs, that Player retains full discretion to arrange their own medical or emergency assistance.</p>
+<p>If a Player is unable to make or communicate a decision due to an injury, illness, or emergency, the Organizer is authorized to contact that Player's designated emergency contact and/or arrange appropriate emergency assistance or medical attention as reasonably necessary.</p>
+<p>Any resulting medical, transportation, hospitalization, or related expenses shall be the responsibility of the affected Player and/or the Player's parent or legal guardian, as applicable.</p>
+<b>4. Emergency Contact</b>
+<p>The Team agrees to provide accurate and current emergency contact information for each Player as part of the tournament registration.</p>
+<p>The Players authorize the Organizer to contact their respective designated emergency contacts in the event of an accident, injury, illness, or other emergency involving either Player.</p>
+<b>5. Tournament Rules and Decisions</b>
+<p>The Players agree to follow the official tournament rules, mechanics, schedules, procedures, and instructions issued by the Organizer.</p>
+<p>The Players acknowledge that tournament officials and organizers may make decisions concerning, among others:</p>
+<ul><li>Match and scoring matters;</li><li>Rules interpretation and enforcement;</li><li>Player or team eligibility;</li><li>Brackets, seeding, and scheduling;</li><li>Court assignments;</li><li>Match interruptions or changes;</li><li>Penalties and disqualifications; and</li><li>Other matters necessary for the proper and orderly conduct of the tournament.</li></ul>
+<p>The Players agree to respect and abide by official tournament decisions made in accordance with the tournament rules and mechanics.</p>
+<b>6. Changes to Tournament Format or Schedule</b>
+<p>The Players acknowledge that the Organizer may modify the tournament schedule, format, court assignments, match sequence, mechanics, or other tournament arrangements when reasonably necessary due to circumstances affecting the conduct of the event.</p>
+<p>The Organizer will make reasonable efforts to preserve the intended tournament format while considering the safety of participants and the practical operation of the event.</p>
+<b>7. Unforeseen Circumstances and Event Interruption</b>
+<p>The Players understand that circumstances beyond the reasonable control of the Organizer may affect the tournament or prevent it from continuing as originally planned.</p>
+<p>If the tournament is interrupted, postponed, modified, or cancelled due to circumstances that make the continuation of the event impractical or unsafe, the Organizer may determine the appropriate course of action, including rescheduling the tournament where reasonably possible.</p>
+<p>If the tournament cannot be rescheduled, any refund shall be determined by the Organizer based on the circumstances of the cancellation and expenses already incurred in organizing the event.</p>
+<p>The Players acknowledge that registration does not guarantee that the tournament will proceed exactly as originally scheduled or in its originally announced format.</p>
+<b>8. Player Conduct and Sportsmanship</b>
+<p>The Players agree to conduct themselves in a respectful and sportsmanlike manner throughout the tournament.</p>
+<p>The Players shall refrain from behavior that may endanger, threaten, harass, intimidate, or disrupt other participants, officials, volunteers, or organizers.</p>
+<p>This includes, but is not limited to, physical aggression, intentional dangerous play, abusive or threatening behavior, harassment, cheating, deliberate misconduct, and refusal to follow reasonable instructions from tournament officials or organizers.</p>
+<p>The Organizer reserves the right to issue warnings, impose appropriate penalties, suspend participation, or disqualify and/or remove a Player or Team from the tournament when a Player's conduct is considered inappropriate, unsafe, disruptive, or inconsistent with the rules and spirit of the event.</p>
+<p>A Player or Team that is disqualified or removed due to misconduct shall not be entitled to a refund of the registration fee.</p>
+<b>9. Registration and Payment</b>
+<p>The Registering Player acknowledges that registration is considered confirmed only upon completion of the required registration information and payment of the applicable registration fee.</p>
+<p>The Registering Player represents that they are registering the Team with the knowledge and consent of their partner and have provided accurate information for both Players.</p>
+<p>All registration fees are non-refundable in cases of player withdrawal, cancellation by either Player, or no-show, regardless of the reason, subject to any refund that the Organizer may separately announce for circumstances affecting the tournament itself.</p>
+<b>10. Team Acceptance of this Agreement</b>
+<p>A Team consists of two (2) Players.</p>
+<p>The Registering Player is authorized by and/or has obtained the consent of their partner to register the Team and accept this Agreement on behalf of both Players.</p>
+<p>By checking the acceptance checkbox during registration, the Registering Player confirms and represents that:</p>
+<ul><li>They have read and understood this entire Waiver, Release &amp; Consent Agreement;</li><li>They are accepting this Agreement on their own behalf;</li><li>They have informed their partner of the terms of this Agreement;</li><li>Their partner has agreed to be bound by this Agreement as a member of the registered Team; and</li><li>They have the consent and authority of their partner to submit the Team's acceptance of this Agreement through the registration form.</li></ul>
+<p>The acceptance submitted by the Registering Player shall constitute the Team's acceptance of this Agreement and the consent of both Players with respect to their participation in the tournament.</p>
+<p>The terms of this Agreement apply separately to each Player and to the Team as a whole. Each Player is responsible for complying with the obligations applicable to them under this Agreement.</p>
+<b>11. Photography, Video and Event Documentation</b>
+<p>The Players acknowledge and agree that they may be photographed, filmed, recorded, or otherwise captured during the tournament and related activities.</p>
+<p>The Players grant the Organizer permission to use photographs, videos, recordings, and other event-related content in which either Player may appear for tournament documentation, event coverage, social media, promotional materials, and other communications related to The Paddle Effect Pickleball Club and its activities, without compensation to the Players.</p>
+<b>12. Personal Information and Data Privacy Consent</b>
+<p>The Players consent to the collection and processing of the personal information provided during tournament registration, which may include the Players' names, contact numbers, Facebook profiles, emergency contact information, and other information reasonably necessary for tournament administration.</p>
+<p>The Organizer may use this information solely for purposes related to the tournament, including:</p>
+<ul><li>Registration and participant verification;</li><li>Tournament communication and announcements;</li><li>Scheduling and match coordination;</li><li>Emergency contact and safety purposes;</li><li>Tournament results and records;</li><li>Event documentation; and</li><li>Other administrative purposes directly related to the tournament.</li></ul>
+<p>The Organizer agrees to use the information only for legitimate tournament-related purposes and will not intentionally use the collected information for unrelated purposes.</p>
+<p>The Players acknowledge that certain registration information, such as their names, team, division, and tournament results, may be published or displayed in connection with tournament results, announcements, social media posts, or other event-related materials.</p>
+<b>13. Minors</b>
+<p>If either Player is below the age of legal majority, the acceptance of this Agreement must be made by the Player's parent or legal guardian on behalf of that minor Player.</p>
+<p>The parent or legal guardian confirms that they have reviewed and understood this Agreement, consent to the minor's participation in the tournament, and agree to the terms of this Agreement on behalf of the minor.</p>
+<p>If both Players are minors, the appropriate parent or legal guardian of each minor must provide the required consent.</p>
+<b>14. Electronic Acceptance</b>
+<p>By checking the agreement checkbox during registration, the Registering Player confirms that they have read, understood, and voluntarily agreed to this entire Waiver, Release &amp; Consent Agreement for themselves and on behalf of their registered partner, subject to the representations made in Section 10.</p>
+<p>The electronic acceptance submitted through the tournament registration form shall constitute the Team's acknowledgment and acceptance of this Agreement.</p>
+  </div>
+  <div class="chk"><input type="checkbox" id="accept" required><label for="accept" style="margin:0">I have read and accept this Waiver, Release &amp; Consent Agreement for myself and my partner.</label></div>
+  </fieldset>
+
+  <fieldset><legend>Payment</legend>
+    <p class="note" style="margin-top:0">The registration fee is &#8369;<span class="fee2"></span> per player (&#8369;<span id="fee-team2"></span> total for your team). Pay both players' fees, then upload one screenshot of your payment.</p>
+    <label for="shot">Upload screenshot of payment</label>
+    <input type="file" id="shot" accept="image/*" required>
+  </fieldset>
+  <button type="submit" id="go">Register team</button>
+  <div id="msg" role="alert"></div>
+</form>
+</main>
+<script>
+const CONFIG={endpoint:SCRIPT_URL,deadline:"2026-11-07T23:59:59+08:00",fee:"1,500",phone:"09190090694"};
+const $=id=>document.getElementById(id);
+const TEAM=(parseInt(CONFIG.fee.replace(/,/g,""),10)*2).toLocaleString("en-US");
+$("fee").textContent=CONFIG.fee;document.querySelector(".fee2").textContent=CONFIG.fee;$("fee-team").textContent=TEAM;$("fee-team2").textContent=TEAM;$("ph").textContent=CONFIG.phone;
+if(new Date()>new Date(CONFIG.deadline)){$("f").hidden=true;$("closed").hidden=false}
+const FIELDS=[["name","Full name","text"],["contact","Contact number","tel"],["fb","Facebook profile link (for contact purposes)","url"],["emname","Emergency contact: full name","text"],["emnum","Emergency contact number","tel"],["shirt","Shirt size","select"]];
+const SIZES=["XS","S","M","L","XL","2XL","3XL"];
+$("players").innerHTML=[1,2].map(n=>`<fieldset><legend>Player ${n}${n==1?" (registering player)":""}</legend>`+FIELDS.map(([k,l,t])=>{const id=`p${n}_${k}`;return `<label for="${id}">${l}</label>`+(t=="select"?`<select id="${id}" name="${id}" required><option value="">Select size</option>${SIZES.map(s=>`<option>${s}</option>`).join("")}</select>`:`<input id="${id}" name="${id}" type="${t}" required ${t=="tel"?'inputmode="tel"':''}>`)}).join("")+`</fieldset>`).join("");
+function shrink(file){return new Promise((ok,no)=>{const i=new Image();i.onload=()=>{const s=Math.min(1,1400/Math.max(i.width,i.height)),c=document.createElement("canvas");c.width=i.width*s;c.height=i.height*s;c.getContext("2d").drawImage(i,0,0,c.width,c.height);ok(c.toDataURL("image/jpeg",.8))};i.onerror=no;i.src=URL.createObjectURL(file)})}
+function fail(t){const m=$("msg");m.className="err";m.textContent=t}
+$("f").addEventListener("submit",async e=>{
+  e.preventDefault();$("msg").className="";$("msg").style.display="none";
+  const f=$("f");
+  if(!f.checkValidity()){f.reportValidity();return}
+  if(!$("accept").checked){fail("Please accept the waiver to continue.");return}
+  $("go").disabled=true;$("go").textContent="Submitting...";
+  try{
+    const d={};new FormData(f).forEach((v,k)=>{if(typeof v=="string")d[k]=v.trim()});
+    d.accepted="Yes";d.image=await shrink($("shot").files[0]);
+    const r=await fetch(CONFIG.endpoint,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(d)});
+    const j=await r.json();
+    if(!j.ok)throw new Error(j.error||"Server error");
+    f.hidden=true;$("ref").textContent=j.ref;$("ok").hidden=false;window.scrollTo(0,0);
+  }catch(err){fail("Registration did not go through. Check your connection and try again, or contact "+CONFIG.phone+".");$("go").disabled=false;$("go").textContent="Register team"}
+});
+</script>
+</body>
+</html>
