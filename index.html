@@ -30,6 +30,8 @@ input:focus,select:focus,button:focus-visible,summary:focus-visible{outline:2px 
 button{width:100%;padding:15px;margin-top:8px;background:var(--gold);color:#000;border:0;border-radius:4px;font:700 22px 'Barlow Condensed',sans-serif;letter-spacing:.04em;cursor:pointer}
 button:disabled{opacity:.5;cursor:wait}
 .note{color:var(--mute);font-size:14px}
+.pay{border:1px solid var(--gold);border-radius:4px;padding:14px;text-align:center;margin:14px 0 4px;background:#000}
+.pay .num{font:700 34px 'Barlow Condensed',sans-serif;color:var(--gold);letter-spacing:.06em}
 .link{width:auto;background:none;color:var(--gold);text-decoration:underline;font:500 15px Barlow,sans-serif;letter-spacing:0;padding:6px 0;margin:4px 0 0}
 dialog{background:#111;color:var(--text);border:1px solid var(--gold);border-radius:6px;padding:20px;max-width:360px;width:90%}
 dialog::backdrop{background:rgba(0,0,0,.8)}
@@ -46,7 +48,7 @@ td{border:1px solid #333;padding:8px}
 <body>
 <main>
 <header>
-  <div class="logos"><img src="logo-road-to-immortal.PNG" alt="Road To Immortal" onerror="this.remove()"><img src="logo-tpe.png" alt="The Paddle Effect" onerror="this.remove()"></div>
+  <div class="logos"><img src="logo-road-to-immortal.png" alt="Road To Immortal" onerror="this.remove()"><img src="logo-tpe.png" alt="The Paddle Effect" onerror="this.remove()"></div>
   <h1>Road To Immortal</h1>
   <p>TPE Pickleball Tournament &middot; November 21, 2026 &middot; Pampanga Pickleball Center</p>
   <p>Registration fee: &#8369;<span id="fee"></span> per player (&#8369;<span id="fee-team"></span> per team) &middot; Deadline: November 7, 2026</p>
@@ -136,6 +138,7 @@ td{border:1px solid #333;padding:8px}
 
   <fieldset><legend>Payment</legend>
     <p class="note" style="margin-top:0">The registration fee is &#8369;<span class="fee2"></span> per player (&#8369;<span id="fee-team2"></span> total for your team). Pay both players' fees, then upload one screenshot of your payment.</p>
+    <div class="pay"><div class="note">Send payment through GCash</div><div class="num">09190090694</div><div>LI*L CA****E G.</div><button type="button" class="link" id="cp">Copy number</button></div>
     <label for="shot">Upload screenshot of payment</label>
     <input type="file" id="shot" accept="image/*" required>
   </fieldset>
@@ -154,6 +157,7 @@ const FIELDS=[["name","Full name","text"],["contact","Contact number","tel"],["f
 const SIZES=[["XS",18,26],["S",19,27],["M",20,28],["L",21,29],["XL",22,30],["2XL",23,31],["3XL",24,32]];
 $("players").innerHTML=[1,2].map(n=>`<fieldset><legend>Player ${n}${n==1?" (registering player)":""}</legend>`+FIELDS.map(([k,l,t])=>{const id=`p${n}_${k}`;return `<label for="${id}">${l}</label>`+(t=="select"?`<select id="${id}" name="${id}" required><option value="">Select size</option>${SIZES.map(s=>`<option value="${s[0]}">${s[0]} (chest ${s[1]}\", length ${s[2]}\")</option>`).join("")}</select><button type="button" class="link" onclick="$('sizes').showModal()">View size chart</button>`:`<input id="${id}" name="${id}" type="${t}" required ${t=="tel"?'inputmode="tel" pattern="[0-9+() -]{7,}" title="Enter a valid phone number"':t=="text"?'pattern=".*[^ ].*" title="This field is required"':''}>`)}).join("")+`</fieldset>`).join("");
 function shrink(file){return new Promise((ok,no)=>{const i=new Image();i.onload=()=>{const s=Math.min(1,1400/Math.max(i.width,i.height)),c=document.createElement("canvas");c.width=i.width*s;c.height=i.height*s;c.getContext("2d").drawImage(i,0,0,c.width,c.height);ok(c.toDataURL("image/jpeg",.8))};i.onerror=no;i.src=URL.createObjectURL(file)})}
+$("cp").onclick=e=>{const b=e.target;if(navigator.clipboard)navigator.clipboard.writeText("09190090694").then(()=>{b.textContent="Copied";setTimeout(()=>b.textContent="Copy number",2000)})};
 function fail(t){const m=$("msg");m.className="err";m.textContent=t}
 $("f").addEventListener("submit",async e=>{
   e.preventDefault();$("msg").className="";$("msg").style.display="none";
