@@ -160,10 +160,12 @@ function shrink(file){return new Promise((ok,no)=>{const i=new Image();i.onload=
 $("cp").onclick=e=>{const b=e.target;if(navigator.clipboard)navigator.clipboard.writeText("09190090694").then(()=>{b.textContent="Copied";setTimeout(()=>b.textContent="Copy number",2000)})};
 function fail(t){const m=$("msg");m.className="err";m.textContent=t}
 $("f").addEventListener("submit",async e=>{
-  e.preventDefault();$("msg").className="";$("msg").style.display="none";
+  e.preventDefault();$("msg").className="";$("msg").textContent="";
   const f=$("f");
-  if(!f.checkValidity()){f.reportValidity();return}
+  const bad=f.querySelector(":invalid");
+  if(bad){bad.scrollIntoView({block:"center"});bad.focus();const lb=document.querySelector(`label[for="${bad.id}"]`);fail("Please check: "+(lb?lb.textContent:"a required field")+(bad.validationMessage?" - "+bad.validationMessage:""));return}
   if(!$("accept").checked){fail("Please accept the waiver to continue.");return}
+  if(!CONFIG.endpoint||CONFIG.endpoint.indexOf("PASTE_APPS_SCRIPT")>-1){fail("This form is not connected to the registration sheet yet. Admin: paste the Apps Script URL on line 3 of index.html.");return}
   $("go").disabled=true;$("go").textContent="Submitting...";
   try{
     const d={};new FormData(f).forEach((v,k)=>{if(typeof v=="string")d[k]=v.trim()});
@@ -172,7 +174,7 @@ $("f").addEventListener("submit",async e=>{
     const j=await r.json();
     if(!j.ok)throw new Error(j.error||"Server error");
     f.hidden=true;$("ref").textContent=j.ref;$("ok").hidden=false;window.scrollTo(0,0);
-  }catch(err){fail("Registration did not go through. Check your connection and try again, or contact "+CONFIG.phone+".");$("go").disabled=false;$("go").textContent="Register team"}
+  }catch(err){fail("Registration did not go through ("+err.message+"). Check your connection and try again, or contact "+CONFIG.phone+".");$("go").disabled=false;$("go").textContent="Register team"}
 });
 </script>
 </body>
